@@ -9,7 +9,7 @@ export function serializehtml(htmlTemplate, body, res) {
     htmlTemplate = htmlTemplate.replace(/%PUBLIC_URL%/g, process.env.REACT_APP_PUBLIC_URL ?? '');
     const html = new load(htmlTemplate);
 
-    html('div#root').prepend('afterbegin', body);
+    html('div#root').prepend(body);
 
     return res.status(200).send(html.html());
 }

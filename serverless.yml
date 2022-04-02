@@ -1,0 +1,38 @@
+service: create-react-app-with-ssr-example
+useDotenv: true
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: homol
+  region: us-east-1
+package:
+  patterns:
+    - '!.git/**'
+    - '!.vscode/**'
+    - '!build/**'
+    - '!config/**'
+    - '!coverage/**'
+    - '!node_modules/**'
+    - '!public/**'
+    - '!reports/**'
+    - '!scripts/**'
+    - '!server/**'
+    - '!src/**'
+    - '!README.md'
+    - build-server/
+    - dist/
+    - .env
+functions:
+  app:
+    handler: dist/bundle.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: ANY
+          path: '{proxy+}'
